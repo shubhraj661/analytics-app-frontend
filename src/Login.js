@@ -1,16 +1,44 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState,useEffect } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
+    try{
+      const response=await axios.post('https://1871-49-36-189-237.ngrok-free.app/api/login',{
+        email,
+        password
+      })
+
+      // console.log(response);
+      const userId=response.data._id;
+
+      if (response.status === 200) {
+        localStorage.setItem('userloggedin', true);
+        window.location.href = '/user/' + userId; 
+      } else if (response.status === 401) {
+        alert('Invalid username or password');
+      }
+
+    }
+    catch (error) {
+      console.error('API call error:', error);
+      alert('An error occurred. Please try again later.');
+    }
+
     setEmail('');
     setPassword('');
   };
+
+  useEffect(() => {
+    setErrorMessage(''); 
+  }, [email,password]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 flex items-center justify-center">

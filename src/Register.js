@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 
 const Register = () => {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -12,35 +12,38 @@ const Register = () => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match. Please try again.');
+      alert('Passwords do not match. Please check and try again.');
       return; 
     }
 
     try {
       const response = await axios.post('https://1871-49-36-189-237.ngrok-free.app/api/register', {
-        name,
+        username,
         email,
         password,
       });
 
+      // console.log(response)
+      const userId=response.data._id;
+
       if (response.status === 201) {
         localStorage.setItem('userloggedin', true);
-        window.location.href = '/user/' + response.data.userId; 
+        window.location.href = '/user/' + userId; 
       } else if (response.status === 400) {
-        setErrorMessage('Registration failed. Please check your details.');
+        alert('Registration failed. Please check your details.');
       } else {
-        setErrorMessage('An error occurred. Please try again later.');
+        alert('An error occurred. Please try again later.');
       }
     } catch (error) {
       console.error('API call error:', error);
-      setErrorMessage('An error occurred. Please try again later.');
+      alert('An error occurred. Please try again later.');
     }
   };
 
   
   useEffect(() => {
     setErrorMessage(''); 
-  }, [name, email, password, confirmPassword]);
+  }, [username, email, password, confirmPassword]);
 
 
   return (
@@ -57,7 +60,7 @@ const Register = () => {
             <input
               id="name"
               type="text"
-              value={name}
+              value={username}
               onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
               required
