@@ -1,0 +1,103 @@
+import React, { useState } from 'react';
+
+const Register = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Confirm Password:', confirmPassword);
+    
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 flex items-center justify-center">
+      <div className="shadow-md rounded-lg p-8 bg-white max-w-md w-full">
+        <div>
+          <h1 className="text-xl font-bold text-center text-blue-700">Create Your Account</h1>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col">
+            <label htmlFor="name" className="mb-2 text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="email" className="mb-2 text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="password" className="mb-2 text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="confirmPassword" className="mb-2 text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              type="submit"
+              className="px-4 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+        <div className="text-center mt-4">
+          <span className="text-gray-700">Already have an account?
+          <a href="/login" className="text text-red-700"> Login Here</a>
+          </span>
+        </div>
+        </div>
+        </div>
+    
+
+
+  )}
+
+  export default Register;
