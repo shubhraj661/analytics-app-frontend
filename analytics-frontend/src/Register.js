@@ -1,47 +1,24 @@
-import React, { useState,useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match. Please try again.');
-      return; 
-    }
-
-    try {
-      const response = await axios.post('https://1871-49-36-189-237.ngrok-free.app/api/register', {
-        name,
-        email,
-        password,
-      });
-
-      if (response.status === 201) {
-        localStorage.setItem('userloggedin', true);
-        window.location.href = '/user/' + response.data.userId; 
-      } else if (response.status === 400) {
-        setErrorMessage('Registration failed. Please check your details.');
-      } else {
-        setErrorMessage('An error occurred. Please try again later.');
-      }
-    } catch (error) {
-      console.error('API call error:', error);
-      setErrorMessage('An error occurred. Please try again later.');
-    }
+    
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('Confirm Password:', confirmPassword);
+    
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
-
-  
-  useEffect(() => {
-    setErrorMessage(''); 
-  }, [name, email, password, confirmPassword]);
-
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 flex items-center justify-center">
