@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import TopBar from './TopBar';
+import MapComponent from './MapComponent';
 
 const AnalyticsPage = () => {
   // const {qrId} = useParams();
@@ -11,6 +12,11 @@ const AnalyticsPage = () => {
   const [locationData, setLocationData] = useState([]);
   const [languageData, setLanguageData] = useState([]);
   const navigate = useNavigate();
+  const coordinates = [
+    { lat: 51.505, lng: -0.09 },
+    { lat: 48.8566, lng: 2.3522 },
+    { lat: 40.7128, lng: -74.0060 }
+  ];
 
   useEffect(()=>{
     const checkLoggedOut = ()=>{
@@ -95,7 +101,9 @@ const AnalyticsPage = () => {
         <p className="text-gray-600 text-2xl">Total Scans</p>
         <p className="text-6xl font-bold text-indigo-600">{totalScans}</p>
       </div>
-      
+      <div className="mb-8">
+      <MapComponent coordinates= {coordinates} />
+      </div>
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Scans by Location</h2>
         <ResponsiveContainer width="100%" height={300}>
