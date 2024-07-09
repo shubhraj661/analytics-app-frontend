@@ -17,7 +17,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('https://1871-49-36-189-237.ngrok-free.app/api/register', {
+      const response = await axios.post('https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/register', {
         username,
         email,
         password,

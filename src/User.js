@@ -6,7 +6,6 @@ import { Modal } from "antd";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const qrCodes=[{id: 'use-32-23',imageUrl: "https://views.medibuddy.in/affinity/doctor.png", redirectWebsite: 'Google.com'},{id: 'use-32-23',imageUrl: "https://views.medibuddy.in/affinity/doctor.png", redirectWebsite: 'Google.com'},{id: 'use-32-23',imageUrl: "https://views.medibuddy.in/affinity/doctor.png", redirectWebsite: 'Google.com'},{id: 'use-32-23',imageUrl: "https://views.medibuddy.in/affinity/doctor.png", redirectWebsite: 'Google.com'}];
 
 function User() {
   const {userId} = useParams();
@@ -21,7 +20,7 @@ function User() {
     const fetchQRCodes = async()=>{
       console.log(userId);
       try{
-       let {data} = await axios.get(`https://1871-49-36-189-237.ngrok-free.app/api/qr/all/${userId}`, {headers: headers});
+       let {data} = await axios.get(`https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr/all/${userId}`, {headers: headers});
        setQrCodes(data);
       }
       catch(err)
@@ -54,7 +53,7 @@ function User() {
         toast('Please enter a valid redirect url');
         return;
       }
-      let {data}= await axios.post('https://1871-49-36-189-237.ngrok-free.app/api/qr', {
+      let {data}= await axios.post('https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr', {
         userId: userId,
         redirectUrl: newUrl,
         imgUrl: 'dummy'
@@ -62,10 +61,10 @@ function User() {
       console.log(data);
       // use the QR id to update the redirect url using a put call
       let qrid= data._id;
-      let analytics_url = `http://localhost:3006/redirect/${qrid}`;
+      let analytics_url = `http://localhost:3006/redirect/${qrid}`; // to be changed on hosting
       let imgUrl = `https://quickchart.io/qr?text=${analytics_url}`;
       // making the put request to update qrimg
-      await axios.put(`https://1871-49-36-189-237.ngrok-free.app/api/qr/${qrid}`, {
+      await axios.put(`https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr/${qrid}`, {
         userId: userId,
         redirectUrl: newUrl,
         imgUrl: imgUrl
