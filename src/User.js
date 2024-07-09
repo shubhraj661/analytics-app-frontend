@@ -84,7 +84,7 @@ function User({logOut}) {
       })
 
       setQrCodes((prev)=>{
-         return [...prev, {userId: userId, redirectUrl: newUrl, imgUrl: imgUrl}]; 
+         return [...prev, {_id: qrid , userId: userId, redirectUrl: newUrl, imgUrl: imgUrl}]; 
       });
       
     }
