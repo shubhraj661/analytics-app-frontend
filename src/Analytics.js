@@ -91,8 +91,10 @@ const AnalyticsPage = () => {
     <>
     <TopBar />
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Analytics for QR ID: {qrId}</h1>
-      <p className="mb-8">Total Scans: {totalScans}</p>
+      <div className="bg-white rounded-lg shadow-md p-12 mb-12 text-center">
+        <p className="text-gray-600 text-2xl">Total Scans</p>
+        <p className="text-6xl font-bold text-indigo-600">{totalScans}</p>
+      </div>
       
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Scans by Location</h2>
