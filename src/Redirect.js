@@ -13,7 +13,7 @@ const Redirect = () => {
   useEffect(() => {
     const fetchRedirectUrl = async () => {
       try {
-        const response = await axiosInstance.get(`https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr/${qrId}`);
+        const response = await axiosInstance.get(`${process.env.REACT_APP_BACKEND_URL}/api/qr/${qrId}`);
         const redirectUrl = response.data.redirectUrl;
         console.log(response.data);
         
@@ -38,7 +38,7 @@ const Redirect = () => {
         // console.log("location:", location,"language:",language)
 
         
-        axiosInstance.post('https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/scan', { qrId, location, language });
+        axiosInstance.post(`${process.env.REACT_APP_BACKEND_URL}/api/scan`, { qrId, location, language });
 
         
         window.location.href = `https://${redirectUrl}`;

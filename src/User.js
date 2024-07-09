@@ -33,7 +33,7 @@ function User({logOut}) {
     const fetchQRCodes = async()=>{
       console.log(userId);
       try{
-       let {data} = await axios.get(`https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr/all/${userId}`, {headers: headers});
+       let {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/qr/all/${userId}`, {headers: headers});
        setQrCodes(data);
       }
       catch(err)
@@ -42,7 +42,7 @@ function User({logOut}) {
       }
     }
     fetchQRCodes();
-  }, [])
+  }, [userId])
 
   function isValidURL(url) {
     // Regular expression for a valid URL
@@ -66,7 +66,7 @@ function User({logOut}) {
         toast('Please enter a valid redirect url');
         return;
       }
-      let {data}= await axios.post('https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr', {
+      let {data}= await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/qr`, {
         userId: userId,
         redirectUrl: newUrl,
         imgUrl: 'dummy'
@@ -77,7 +77,7 @@ function User({logOut}) {
       let analytics_url = `http://localhost:3006/redirect/${qrid}`; // to be changed on hosting
       let imgUrl = `https://quickchart.io/qr?text=${analytics_url}`;
       // making the put request to update qrimg
-      await axios.put(`https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/qr/${qrid}`, {
+      await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/qr/${qrid}`, {
         userId: userId,
         redirectUrl: newUrl,
         imgUrl: imgUrl

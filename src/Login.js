@@ -13,7 +13,7 @@ const Login = ({logIn}) => {
     console.log('Email:', email);
     console.log('Password:', password);
     try{
-      const response=await axios.post('https://3e2d-2405-201-4008-42f3-4db1-ba9c-4286-669.ngrok-free.app/api/login',{
+      const response=await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`,{
         email,
         password
       })
