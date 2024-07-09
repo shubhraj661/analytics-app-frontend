@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({logIn}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,11 +22,12 @@ const Login = () => {
       const userId=response.data._id;
 
       if (response.status === 200) {
-        localStorage.setItem('userloggedin', true);
-        window.location.href = '/user/' + userId; 
+        sessionStorage.setItem('loggedInUser', userId)
+        navigate(`/user/${userId}`)
       } else if (response.status === 401) {
         alert('Invalid username or password');
       }
+
 
     }
     catch (error) {
@@ -39,6 +42,17 @@ const Login = () => {
   useEffect(() => {
     setErrorMessage(''); 
   }, [email,password]);
+
+  useEffect(()=>{
+    const checkloggedIn= ()=>{
+      console.log('checking');
+      const userId = sessionStorage.getItem('loggedInUser')
+      if(userId){ 
+        navigate(`/user/${userId}`)
+      }
+    }
+    checkloggedIn();
+}, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 flex items-center justify-center">

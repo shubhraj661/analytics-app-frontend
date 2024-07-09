@@ -5,16 +5,29 @@ import { useState, useEffect } from 'react';
 import { Modal } from "antd";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TopBar from './TopBar';
+import { useNavigate } from 'react-router-dom';
 
-
-function User() {
+function User({logOut}) {
   const {userId} = useParams();
+  const navigate = useNavigate();
   let [qrCodes, setQrCodes] = useState([]);
   let [openModal , setOpenModal]= useState(false);
   let [newUrl , setNewUrl] = useState('');
   const headers = {
     "ngrok-skip-browser-warning": "69420"
   };
+
+  useEffect(()=>{
+    const checkLoggedOut = ()=>{
+      console.log('checking');
+      const userId = sessionStorage.getItem('loggedInUser')
+      if(!userId){ 
+        navigate(`/login`)
+      }
+    }
+    checkLoggedOut();
+  }, [])
 
   useEffect(()=>{
     const fetchQRCodes = async()=>{
@@ -85,6 +98,7 @@ function User() {
   return (
     <>
        <ToastContainer />
+       <TopBar/>
      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 px-4 py-8">
     <div class="fixed bottom-4 right-4 z-50">
         <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-2xl" onClick={()=>{setOpenModal(true)}}>

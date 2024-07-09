@@ -1,13 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({logIn}) => {
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,8 +28,8 @@ const Register = () => {
       const userId=response.data._id;
 
       if (response.status === 201) {
-        localStorage.setItem('userloggedin', true);
-        window.location.href = '/user/' + userId; 
+        sessionStorage.setItem('loggedInUser', userId)
+        navigate(`/user/${userId}`)
       } else if (response.status === 400) {
         alert('Registration failed. Please check your details.');
       } else {
@@ -44,6 +45,17 @@ const Register = () => {
   useEffect(() => {
     setErrorMessage(''); 
   }, [username, email, password, confirmPassword]);
+
+  useEffect(()=>{
+    const checkloggedIn= ()=>{
+      console.log('checking');
+      const userId = sessionStorage.getItem('loggedInUser')
+      if(userId){ 
+        navigate(`/user/${userId}`)
+      }
+    }
+    checkloggedIn();
+}, [])
 
 
   return (

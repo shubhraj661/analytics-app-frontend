@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useNavigate } from 'react-router-dom';
+import TopBar from './TopBar';
 
 const AnalyticsPage = () => {
   // const {qrId} = useParams();
@@ -8,6 +10,18 @@ const AnalyticsPage = () => {
   const [totalScans, setTotalScans] = useState(0);
   const [locationData, setLocationData] = useState([]);
   const [languageData, setLanguageData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const checkLoggedOut = ()=>{
+      console.log('checking');
+      const userId = sessionStorage.getItem('loggedInUser')
+      if(!userId){ 
+        navigate(`/login`)
+      }
+    }
+    checkLoggedOut();
+  }, [])
 
   useEffect(() => {
     
@@ -74,6 +88,8 @@ const AnalyticsPage = () => {
   }, [qrId]);
 
   return (
+    <>
+    <TopBar />
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Analytics for QR ID: {qrId}</h1>
       <p className="mb-8">Total Scans: {totalScans}</p>
@@ -106,6 +122,7 @@ const AnalyticsPage = () => {
         </ResponsiveContainer>
       </div>
     </div>
+    </>
   );
 };
 
