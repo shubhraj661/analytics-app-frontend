@@ -74,7 +74,7 @@ function User({logOut}) {
       console.log(data);
       // use the QR id to update the redirect url using a put call
       let qrid= data._id;
-      let analytics_url = `http://localhost:3006/redirect/${qrid}`; // to be changed on hosting
+      let analytics_url = `https://qr-sight.vercel.app/redirect/${qrid}`; // to be changed on hosting
       let imgUrl = `https://quickchart.io/qr?text=${analytics_url}`;
       // making the put request to update qrimg
       await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/qr/${qrid}`, {
